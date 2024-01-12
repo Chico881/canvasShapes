@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas Shapes</title>
+  <style>
+    .shapeCanvas {
+      width: 150px;
+      height: 150px;
+      margin: 5px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="display: flex; flex-wrap: wrap;">
+
+    <canvas id="rectangleCanvas" class="shapeCanvas"></canvas>
+    <canvas id="circleCanvas" class="shapeCanvas"></canvas>
+    <canvas id="triangleCanvas" class="shapeCanvas"></canvas>
+    <canvas id="lineCanvas" class="shapeCanvas"></canvas>
+    
+    <canvas id="ellipseCanvas" class="shapeCanvas"></canvas>
+    <canvas id="quadraticCurveCanvas" class="shapeCanvas"></canvas>
+    <canvas id="polygonCanvas" class="shapeCanvas"></canvas>
+    <canvas id="arcCanvas" class="shapeCanvas"></canvas>
+    
+    <canvas id="cubicCurveCanvas" class="shapeCanvas"></canvas>
+    <canvas id="roundedRectCanvas" class="shapeCanvas"></canvas>
+
+  </div>
+
+  <script>
+    // Rectangle
+    const rectangleCanvas = document.getElementById('rectangleCanvas');
+    const rectangleCtx = rectangleCanvas.getContext('2d');
+    rectangleCtx.fillStyle = 'blue';
+    rectangleCtx.fillRect(10, 10, 130, 80);
+
+    // Circle
+    const circleCanvas = document.getElementById('circleCanvas');
+    const circleCtx = circleCanvas.getContext('2d');
+    circleCtx.beginPath();
+    circleCtx.arc(75, 75, 65, 0, Math.PI * 2); // Parameters: x, y, radius, startAngle, endAngle
+    circleCtx.fillStyle = 'red';
+    circleCtx.fill();
+
+    // Triangle
+    const triangleCanvas = document.getElementById('triangleCanvas');
+    const triangleCtx = triangleCanvas.getContext('2d');
+    triangleCtx.beginPath();
+    triangleCtx.moveTo(75, 10); // Move to starting point
+    triangleCtx.lineTo(140, 90); // Draw line to second point
+    triangleCtx.lineTo(10, 90); // Draw line to third point
+    triangleCtx.closePath(); // Close the path to automatically connect last and first points
+    triangleCtx.fillStyle = 'green';
+    triangleCtx.fill();
+
+    // Line
+    const lineCanvas = document.getElementById('lineCanvas');
+    const lineCtx = lineCanvas.getContext('2d');
+    lineCtx.beginPath();
+    lineCtx.moveTo(10, 10); // Move to starting point
+    lineCtx.lineTo(140, 140); // Draw line to ending point
+    lineCtx.strokeStyle = 'purple';
+    lineCtx.lineWidth = 5;
+    lineCtx.stroke();
+
+    // Ellipse
+    const ellipseCanvas = document.getElementById('ellipseCanvas');
+    const ellipseCtx = ellipseCanvas.getContext('2d');
+    ellipseCtx.beginPath();
+    ellipseCtx.ellipse(75, 75, 65, 25, 0, 0, Math.PI * 2); // Parameters: x, y, x-radius, y-radius, rotation, startAngle, endAngle
+    ellipseCtx.fillStyle = 'orange';
+    ellipseCtx.fill();
+
+    // Quadratic Curve
+    const quadraticCurveCanvas = document.getElementById('quadraticCurveCanvas');
+    const quadraticCurveCtx = quadraticCurveCanvas.getContext('2d');
+    quadraticCurveCtx.beginPath();
+    quadraticCurveCtx.moveTo(10, 90); // Move to starting point
+    quadraticCurveCtx.quadraticCurveTo(30, 60, 75, 90); // Parameters: control point x, control point y, end point x, end point y
+    quadraticCurveCtx.strokeStyle = 'brown';
+    quadraticCurveCtx.lineWidth = 3;
+    quadraticCurveCtx.stroke();
+
+    // Polygon
+    const polygonCanvas = document.getElementById('polygonCanvas');
+    const polygonCtx = polygonCanvas.getContext('2d');
+    polygonCtx.beginPath();
+    const sides = 6;
+    const centerX = 75;
+    const centerY = 75;
+    const radius = 65;
+    for (let i = 0; i < sides; i++) {
+      const angle = (i / sides) * Math.PI * 2;
+      const x = centerX + radius * Math.cos(angle);
+      const y = centerY + radius * Math.sin(angle);
+      if (i === 0) {
+        polygonCtx.moveTo(x, y); // Move to starting point
+      } else {
+        polygonCtx.lineTo(x, y); // Draw line to next point
+      }
+    }
+    polygonCtx.closePath(); // Close the path to automatically connect last and first points
+    polygonCtx.fillStyle = 'yellow';
+    polygonCtx.fill();
+
+    // Arc
+    const arcCanvas = document.getElementById('arcCanvas');
+    const arcCtx = arcCanvas.getContext('2d');
+    arcCtx.beginPath();
+    arcCtx.arc(75, 75, 65, 0, Math.PI * 2); // Draw a full circle
+    arcCtx.strokeStyle = 'gray';
+    arcCtx.lineWidth = 3;
+    arcCtx.stroke();
+
+    // Cubic Curve
+    const cubicCurveCanvas = document.getElementById('cubicCurveCanvas');
+    const cubicCurveCtx = cubicCurveCanvas.getContext('2d');
+    cubicCurveCtx.beginPath();
+    cubicCurveCtx.moveTo(10, 90); // Move to starting point
+    cubicCurveCtx.bezierCurveTo(30, 60, 120, 120, 140, 90); // Parameters: control point1 x, control point1 y, control point2 x, control point2 y, end point x, end point y
+    cubicCurveCtx.strokeStyle = 'navy';
+    cubicCurveCtx.lineWidth = 3;
+    cubicCurveCtx.stroke();
+    cubicCurveCtx.lineTo(10, 90); // Connect to the starting point of the curve
+    cubicCurveCtx.closePath(); // Close the path
+    cubicCurveCtx.fillStyle = 'lightgreen'; // Set fill color
+    cubicCurveCtx.fill(); // Fill the shape
+
+    // Rounded Rectangle
+    const roundedRectCanvas = document.getElementById('roundedRectCanvas');
+    const roundedRectCtx = roundedRectCanvas.getContext('2d');
+    roundedRectCtx.beginPath();
+    roundedRectCtx.moveTo(30, 30); // Move to starting point
+    roundedRectCtx.lineTo(120, 30); // Draw line to second point
+    roundedRectCtx.arcTo(150, 30, 150, 60, 20); // Parameters: control point x1, control point y1, control point x2, control point y2, radius
+    roundedRectCtx.lineTo(150, 120); // Draw line to third point
+    roundedRectCtx.arcTo(150, 150, 120, 150, 20);
+    roundedRectCtx.lineTo(30, 150);
+    roundedRectCtx.arcTo(0, 150, 0, 120, 20);
+    roundedRectCtx.lineTo(0, 60);
+    roundedRectCtx.arcTo(0, 30, 30, 30, 20);
+    roundedRectCtx.closePath(); // Close the path
+    roundedRectCtx.fillStyle = 'lightblue';
+    roundedRectCtx.fill();
+  </script>
+</body>
+</html>
